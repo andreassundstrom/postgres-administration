@@ -1,0 +1,18 @@
+# Add an .env file (see example.env for template)
+
+services:
+  primary:
+    image: postgres:16.4
+    container_name: postgres_primary
+    env_file:
+      - .env
+    volumes:
+      - ./data/primary:/var/lib/postgresql/data
+  standby:
+    image: postgres:16.4
+    container_name: postgres_standby
+    env_file:
+      - .env
+    volumes:
+      - ./data/standby:/var/lib/postgresql/data
+    # command: sleep 12h
