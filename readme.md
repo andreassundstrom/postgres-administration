@@ -41,16 +41,7 @@ archive_mode = on
 archive_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'
 ```
 
-Add an entry for the replicator in the [`pg_hba.conf`](data/primary/pg_hba.conf). You can find the IP-adress via `docker inspect postgres_standby`.
-
-```json
-"NetworkSettings": {
-    ...
-    "Networks": {
-        "postgres-streaming-replication_default": {
-            ...
-            "IPAddress": "172.18.0.2",
-```
+Add an entry for the replicator in the [`pg_hba.conf`](data/primary/pg_hba.conf). You can find the IP-adress via `docker inspect postgres_standby -f "{{ .NetworkSettings.Networks.postgres_streaming.IPAddress }}"`.
 
 ```txt
 # TYPE  DATABASE        USER            ADDRESS         METHOD

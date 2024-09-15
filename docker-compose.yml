@@ -1,5 +1,8 @@
 # Add an .env file (see example.env for template)
 
+networks:
+  default:
+    name: postgres_streaming
 services:
   primary:
     image: postgres:16.4
@@ -15,4 +18,4 @@ services:
       - .env
     volumes:
       - ./data/standby:/var/lib/postgresql/data
-    # command: sleep 12h
+    command: sleep 12h
