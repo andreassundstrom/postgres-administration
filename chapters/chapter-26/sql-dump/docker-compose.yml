@@ -1,0 +1,11 @@
+# Add an .env file (see example.env for template)
+
+services:
+  postgres:
+    image: postgres:16.4
+    env_file:
+      - .env
+    volumes:
+      - ./data/primary:/var/lib/postgresql/data
+      - ./seed-data.sql:/var/lib/postgresql/seed-data.sql
+      - ./pg_dump_output:/var/lib/postgresql/pg_dump_output
