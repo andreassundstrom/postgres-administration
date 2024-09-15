@@ -33,7 +33,7 @@ docker exec -it postgres_replica psql -U replicator  -h postgres_primary -d post
 
 ## Configure the primary container
 
-The data catalog for both postgres clusters are mounted to the local filesystem. Open the configuration file [`postgresql.conf`](./data/primary/postgresql.conf).
+The data catalog for both postgres clusters are mounted to the local filesystem. Open the configuration file `data/primary/postgresql.conf`.
 
 Enable archiving and set an archive command:
 ```text
@@ -41,7 +41,7 @@ archive_mode = on
 archive_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'
 ```
 
-Add an entry for the replicator in the [`pg_hba.conf`](data/primary/pg_hba.conf). You can find the IP-adress via `docker inspect postgres_standby -f "{{ .NetworkSettings.Networks.postgres_streaming.IPAddress }}"`.
+Add an entry for the replicator in the `data/primary/pg_hba.conf`. You can find the IP-adress via `docker inspect postgres_standby -f "{{ .NetworkSettings.Networks.postgres_streaming.IPAddress }}"`.
 
 ```txt
 # TYPE  DATABASE        USER            ADDRESS         METHOD
@@ -68,7 +68,7 @@ pg_basebackup -h postgres_primary -U replicator -p 5432 -D $PGDATA -P -Xs -R
 
 The command `-R` adds a configuration for replication. The next time the container starts it will start log-streaming from the primary.
 
-Finally stop the standby container with `docker compose down standby`, remove the sleep command in [docker-compose.yml](docker-compose.yml) in order to just start the postgres process:
+Finally stop the standby container with `docker compose down standby`, remove the sleep command in `docker-compose.yml` in order to just start the postgres process:
 ```yml
   standby:
     image: postgres:16.4
