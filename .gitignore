@@ -1,3 +1,5 @@
 .env
 data
 **/pg_dump_output/*.sql
+**/archivedir
+**/backups

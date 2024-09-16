@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16.4
+    env_file:
+      - .env
+    # command: sleep 60000
+    volumes:
+      - ./data/primary:/var/lib/postgresql/data
+      - ./seed-data.sql:/var/lib/postgresql/seed-data.sql
+      - ./archivedir/:/mnt/server/archivedir
+      - ./backups/:/mnt/server/backups
